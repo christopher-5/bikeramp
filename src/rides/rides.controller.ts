@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { RidesService } from './rides.service';
 
 @Controller('api')
@@ -13,7 +13,11 @@ export class RidesController {
     @Body('date') date: any,
   ) {
     const createdRide = this.RidesService.insertRide(
-      startAddress, destinationAddress, distance, price, date
+      startAddress,
+      destinationAddress,
+      distance,
+      price,
+      date,
     );
     return createdRide;
   }
