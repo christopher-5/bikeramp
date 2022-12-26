@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common'
+import { Body, Controller, Get, Post } from "@nestjs/common";
 import { RidesService } from './rides.service';
 
 @Controller('api')
@@ -16,5 +16,16 @@ export class RidesController {
       startAddress, destinationAddress, distance, price, date
     );
     return createdRide;
+  }
+
+  @Get('stats/weekly')
+  getWeeklyStats() {
+    const weeklyStats = this.RidesService.getWeeklyStats();
+    return weeklyStats;
+  }
+  @Get('stats/monthly')
+  getMonthlyStats() {
+    const monthlyStats = this.RidesService.getMonthlyStats();
+    return monthlyStats;
   }
 }
