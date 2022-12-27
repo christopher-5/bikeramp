@@ -1,4 +1,4 @@
-export class Ride {
+export class Trip {
   constructor(
     public start_address: string,
     public destination_address: string,
