@@ -4,6 +4,6 @@ export class Trip {
     public destination_address: string,
     public distance: number,
     public price: number,
-    public date: any,
+    public date: Date,
   ) {}
 }

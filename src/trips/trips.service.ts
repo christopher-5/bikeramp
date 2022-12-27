@@ -1,22 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { Trip } from './trips.model';
+import { InjectRepository } from '@nestjs/typeorm';
+import { TripEntity } from '../postgres/trip.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class TripsService {
-  insertRide(
-    start_address: string,
-    destination_address: string,
-    distance: number,
-    price: number,
-    date: any,
-  ) {
-    const newRide = new Trip(
-      start_address,
-      destination_address,
-      distance,
-      price,
-      date,
-    );
-    return newRide;
+  constructor(
+    @InjectRepository(TripEntity)
+    private tripRepository: Repository<TripEntity>,
+  ) {}
+  create(trip: Trip) {
+    const newTrip = this.tripRepository.create(trip);
+    return this.tripRepository.save(newTrip);
   }
 }

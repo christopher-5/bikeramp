@@ -1,24 +1,13 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { TripsService } from './trips.service';
+import { Trip } from './trips.model';
 
 @Controller()
 export class TripsController {
   constructor(private readonly TripsService: TripsService) {}
   @Post('trips')
-  addRide(
-    @Body('start_address') startAddress: string,
-    @Body('destination_address') destinationAddress: string,
-    @Body('distance') distance: number,
-    @Body('price') price: number,
-    @Body('date') date: any,
-  ) {
-    const createdRide = this.TripsService.insertRide(
-      startAddress,
-      destinationAddress,
-      distance,
-      price,
-      date,
-    );
-    return createdRide;
+  create(@Body() trip: Trip) {
+    console.log('jest git');
+    return this.TripsService.create(trip);
   }
 }
