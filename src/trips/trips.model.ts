@@ -4,7 +4,7 @@ export class Trip extends RequestBody {
   constructor(
     public start_address: string,
     public destination_address: string,
-    public distance: any,
+    public distance: number,
     public price: number,
     public date: Date,
   ) {

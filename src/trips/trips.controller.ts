@@ -17,7 +17,7 @@ export class TripsController {
     const newTrip = new Trip(
       body.start_address,
       body.destination_address,
-      (calculatedDistance / 1000).toFixed(2),
+      Math.round(calculatedDistance / 10) / 100,
       body.price,
       body.date,
     );
