@@ -10,10 +10,7 @@ export class TripsController {
     private readonly TripsService: TripsService,
     private readonly GoogleService: GoogleService,
   ) {}
-  @Post('test')
-  distance(@Body() trip: Trip) {
-    return this.GoogleService.calculateDistance(trip);
-  }
+
   @Post('trips')
   async create(@Body() body: RequestBody) {
     const calculatedDistance = await this.GoogleService.calculateDistance(body);
