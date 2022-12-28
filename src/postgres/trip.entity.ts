@@ -23,5 +23,5 @@ export class TripEntity {
   })
   price: number;
   @Column({ type: 'date' })
-  date: Date;
+  date: any;
 }
