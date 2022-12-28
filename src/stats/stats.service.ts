@@ -1,29 +1,24 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { TripEntity } from '../postgres/trip.entity';
+import { Repository } from 'typeorm';
+import { from, Observable } from 'rxjs';
+import { StatsInterface } from '../postgres/stats.interface';
 
 @Injectable()
 export class StatsService {
-  getWeeklyStats() {
-    const weeklyStats = {
-      total_distance: '40km',
-      total_price: '49.75PLN',
-    };
-    return weeklyStats;
+  constructor(
+    @InjectRepository(TripEntity)
+    private tripRepository: Repository<TripEntity>,
+  ) {}
+  getWeeklyStats(): Promise<StatsInterface> {
+    return this.tripRepository.query(
+      "SELECT SUM(distance) AS total_distance, SUM(price) AS total_price FROM trips2 WHERE date BETWEEN date_trunc('week', CURRENT_TIMESTAMP) AND CURRENT_TIMESTAMP;",
+    );
   }
   getMonthlyStats() {
-    const monthlyStats = [
-      {
-        day: 'July, 4th',
-        total_distance: '12km',
-        avg_ride: '4km',
-        avg_price: '22.75PLN',
-      },
-      {
-        day: 'July, 5th',
-        total_distance: '3km',
-        avg_ride: '3km',
-        avg_price: '15.50PLN',
-      },
-    ];
-    return monthlyStats;
+    return this.tripRepository.query(
+      "SELECT date, ROUND(SUM(distance), 2) AS total_distance, ROUND(AVG(distance), 2) AS avg_ride, ROUND(AVG(price), 2) AS avg_price FROM trips2 WHERE date BETWEEN date_trunc('month', CURRENT_TIMESTAMP) AND CURRENT_TIMESTAMP GROUP BY date ORDER BY date;",
+    );
   }
 }

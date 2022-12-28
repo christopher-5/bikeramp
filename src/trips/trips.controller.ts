@@ -7,7 +7,6 @@ export class TripsController {
   constructor(private readonly TripsService: TripsService) {}
   @Post('trips')
   create(@Body() trip: Trip) {
-    console.log('jest git');
     return this.TripsService.create(trip);
   }
 }
