@@ -20,6 +20,6 @@ export class TripsController {
       body.price,
       body.date,
     );
-    return this.TripsService.create(newTrip);
+    return await this.TripsService.create(newTrip);
   }
 }

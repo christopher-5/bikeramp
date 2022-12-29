@@ -49,5 +49,5 @@ export enum Endpoints {
   ADD_TRIP = 'trips',
 }
 
-export const weeklyStatsQuery = `SELECT SUM(distance) AS total_distance, SUM(price) AS total_price FROM ${Database.TABLE_NAME} WHERE date BETWEEN date_trunc('week', CURRENT_TIMESTAMP) AND CURRENT_TIMESTAMP;`;
-export const monthlyStatsQuery = `SELECT date, ROUND(SUM(distance), 2) AS total_distance, ROUND(AVG(distance), 2) AS avg_ride, ROUND(AVG(price), 2) AS avg_price FROM ${Database.TABLE_NAME} WHERE date BETWEEN date_trunc('month', CURRENT_TIMESTAMP) AND CURRENT_TIMESTAMP GROUP BY date ORDER BY date;`;
+export const weeklyStatsQuery = `SELECT SUM(distance) || 'km' AS total_distance, SUM(price) || 'PLN' AS total_price  FROM ${Database.TABLE_NAME} WHERE date BETWEEN date_trunc('week', CURRENT_TIMESTAMP) AND CURRENT_TIMESTAMP;`;
+export const monthlyStatsQuery = `SELECT date, ROUND(SUM(distance), 2) || 'km' AS total_distance, ROUND(AVG(distance), 2) || 'km' AS avg_ride, ROUND(AVG(price), 2) || 'PLN' AS avg_price FROM ${Database.TABLE_NAME} WHERE date BETWEEN date_trunc('month', CURRENT_TIMESTAMP) AND CURRENT_TIMESTAMP GROUP BY date ORDER BY date;`;
