@@ -1,6 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Database } from '../types/types';
 
-@Entity('trips2')
+@Entity(Database.TABLE_NAME)
 export class TripEntity {
   @PrimaryGeneratedColumn()
   id: number;

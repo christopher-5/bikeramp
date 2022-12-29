@@ -1,15 +1,19 @@
 import { Controller, Get } from '@nestjs/common';
 import { StatsService } from './stats.service';
-import { MonthlyStatsInterface, WeeklyStatsInterface } from '../types/types';
+import {
+  Endpoints,
+  MonthlyStatsInterface,
+  WeeklyStatsInterface,
+} from '../types/types';
 
-@Controller('stats')
+@Controller(Endpoints.STATS_CONTROLLER)
 export class StatsController {
   constructor(private readonly StatsService: StatsService) {}
-  @Get('weekly')
+  @Get(Endpoints.WEEKLY_STATS)
   getWeeklyStats(): Promise<WeeklyStatsInterface> {
     return this.StatsService.getWeeklyStats().then((data) => data[0]);
   }
-  @Get('monthly')
+  @Get(Endpoints.MONTHLY_STATS)
   getMonthlyStats(): Promise<MonthlyStatsInterface[]> {
     return this.StatsService.getMonthlyStats();
   }

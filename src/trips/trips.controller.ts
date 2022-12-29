@@ -1,8 +1,7 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { TripsService } from './trips.service';
-import { Trip } from './trips.model';
 import { GoogleService } from './google.service';
-import { RequestBody } from './requestBody.model';
+import { Endpoints, RequestBody, Trip } from '../types/types';
 
 @Controller()
 export class TripsController {
@@ -11,7 +10,7 @@ export class TripsController {
     private readonly GoogleService: GoogleService,
   ) {}
 
-  @Post('trips')
+  @Post(Endpoints.ADD_TRIP)
   async create(@Body() body: RequestBody) {
     const calculatedDistance = await this.GoogleService.calculateDistance(body);
     const newTrip = new Trip(

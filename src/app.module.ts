@@ -5,12 +5,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import * as process from 'process';
 import { TripEntity } from './postgres/trip.entity';
+import { Database } from './types/types';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
-      type: 'postgres',
+      type: Database.TYPE,
       host: process.env.POSTGRES_HOST,
       port: parseInt(process.env.POSTGRES_PORT),
       username: process.env.POSTGRES_USERNAME,

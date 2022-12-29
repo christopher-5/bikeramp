@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { Trip } from './trips.model';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TripEntity } from '../postgres/trip.entity';
 import { Repository } from 'typeorm';
+import { Trip } from '../types/types';
 
 @Injectable()
 export class TripsService {

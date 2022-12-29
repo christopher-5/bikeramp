@@ -1,18 +1,24 @@
 import { Injectable } from '@nestjs/common';
-import { Trip } from './trips.model';
 import axios from 'axios';
 import * as process from 'process';
-import { RequestBody } from './requestBody.model';
+import { GoogleApi, RequestBody } from '../types/types';
 
 @Injectable()
 export class GoogleService {
   calculateDistance(requestBody: RequestBody) {
-    const newURL = new URL(
-      'https://maps.googleapis.com/maps/api/distancematrix/json',
+    const newURL = new URL(GoogleApi.URL);
+    newURL.searchParams.append(
+      GoogleApi.DESTINATIONS_PARAM,
+      requestBody.destination_address,
     );
-    newURL.searchParams.append('destinations', requestBody.destination_address);
-    newURL.searchParams.append('origins', requestBody.start_address);
-    newURL.searchParams.append('key', process.env.GOOGLE_APIKEY);
+    newURL.searchParams.append(
+      GoogleApi.ORIGINS_PARAM,
+      requestBody.start_address,
+    );
+    newURL.searchParams.append(
+      GoogleApi.API_KEY_PARAM,
+      process.env.GOOGLE_APIKEY,
+    );
     return axios(newURL.href).then(
       (response) => response.data.rows[0].elements[0].distance.value,
     );
